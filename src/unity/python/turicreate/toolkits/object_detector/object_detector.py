@@ -98,7 +98,7 @@ def _raise_error_if_not_detection_sframe(dataset, feature, annotations, require_
 
 def create(dataset, annotations=None, feature=None, model='darknet-yolo',
            classes=None, batch_size=0, max_iterations=0, verbose=True,
-           **kwargs):
+           all_iterations=False, **kwargs):
     """
     Create a :class:`ObjectDetector` model.
 
@@ -153,6 +153,9 @@ def create(dataset, annotations=None, feature=None, model='darknet-yolo',
 
     verbose : bool, optional
         If True, print progress updates and model details.
+        
+    all_iterations : bool, optional
+        If True, prints all progress iteration updates and model details.
 
     Returns
     -------
@@ -412,7 +415,7 @@ def create(dataset, annotations=None, feature=None, model='darknet-yolo',
             print(hr)
 
         if verbose and (cur_time > progress['last_time'] + 10 or
-                        iteration_base1 == max_iterations):
+                        iteration_base1 == max_iterations or all_iterations == True):
             # Print progress table row
             elapsed_time = cur_time - start_time
             print("| {cur_iter:<{width}}| {loss:<{width}.3f}| {time:<{width}.1f}|".format(
